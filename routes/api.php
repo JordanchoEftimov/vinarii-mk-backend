@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactMessageController;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('contact-messages', ContactMessageController::class)->only('store');
+Route::apiResource('subscriptions', Subscription::class)->only('store');

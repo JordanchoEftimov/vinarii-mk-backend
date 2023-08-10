@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         if (! app()->isProduction()) {
             $this->call([
                 ContactMessageSeeder::class,
+                SubscriptionSeeder::class,
             ]);
         }
         $this->call([
