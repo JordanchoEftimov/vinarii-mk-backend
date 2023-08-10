@@ -20,5 +20,13 @@ class UserSeeder extends Seeder
                 'password' => 'admin123',
                 'role' => UserRole::ADMIN->value,
             ]);
+
+        User::query()
+            ->create([
+                'name' => 'Winery',
+                'email' => 'winery@gmail.com',
+                'password' => 'winery123',
+                'role' => UserRole::WINERY->value,
+            ]);
     }
 }
