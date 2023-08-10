@@ -14,6 +14,8 @@ class SubscriptionResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-envelope';
 
+    protected static ?string $navigationGroup = 'Misc';
+
     public static function table(Table $table): Table
     {
         return $table

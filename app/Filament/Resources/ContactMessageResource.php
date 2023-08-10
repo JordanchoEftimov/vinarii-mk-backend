@@ -16,6 +16,8 @@ class ContactMessageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-inbox';
 
+    protected static ?string $navigationGroup = 'Misc';
+
     public static function form(Form $form): Form
     {
         return $form
