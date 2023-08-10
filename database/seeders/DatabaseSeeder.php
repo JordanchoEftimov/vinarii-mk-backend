@@ -12,6 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        if (! app()->isProduction()) {
+            $this->call([
+                ContactMessageSeeder::class,
+            ]);
+        }
         $this->call([
             UserSeeder::class,
         ]);
