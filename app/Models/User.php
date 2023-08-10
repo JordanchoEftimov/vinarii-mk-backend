@@ -38,6 +38,10 @@ class User extends Authenticatable implements FilamentUser
         'remember_token',
     ];
 
+    protected $appends = [
+        'user_role_name',
+    ];
+
     /**
      * The attributes that should be cast.
      *
@@ -52,6 +56,20 @@ class User extends Authenticatable implements FilamentUser
     public function password(): Attribute
     {
         return Attribute::set(fn ($val) => bcrypt($val));
+    }
+
+    public function userRoleName(): Attribute
+    {
+        return Attribute::get(function () {
+            switch ($this->role) {
+                case UserRole::ADMIN:
+                    return 'Admin';
+                case UserRole::WINERY:
+                    return 'Winery';
+                default:
+                    return 'Unknown';
+            }
+        });
     }
 
     public function canAccessPanel(Panel $panel): bool
