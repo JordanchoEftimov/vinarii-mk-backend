@@ -64,6 +64,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasMany(Wine::class);
     }
 
+    public function contactMessages(): HasMany
+    {
+        return $this->hasMany(ContactMessage::class);
+    }
+
     public function userRoleName(): Attribute
     {
         return Attribute::get(function () {

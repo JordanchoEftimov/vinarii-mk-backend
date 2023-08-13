@@ -2,19 +2,18 @@
 
 namespace App\Policies;
 
-use App\Enums\UserRole;
 use App\Models\User;
 
 class ContactMessagePolicy
 {
     public function viewAny(User $user): bool
     {
-        return $user->role === UserRole::ADMIN;
+        return true;
     }
 
     public function view(User $user): bool
     {
-        return $user->role === UserRole::ADMIN;
+        return true;
     }
 
     public function create(User $user): bool

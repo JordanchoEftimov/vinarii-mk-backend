@@ -19,6 +19,7 @@ class ContactMessageRequest extends FormRequest
             'email' => ['required', 'email', 'max:255'],
             'phone' => ['required', 'max:255'],
             'description' => ['required', 'max:65535'],
+            'user_id' => ['nullable', 'exists:users,id'],
         ];
     }
 }

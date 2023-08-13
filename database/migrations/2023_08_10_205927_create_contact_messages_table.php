@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone');
             $table->text('description');
+
+            $table->foreignId('user_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

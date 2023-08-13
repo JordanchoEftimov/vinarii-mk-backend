@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\UserRole;
 use App\Filament\Resources\ContactMessageResource\Pages;
 use App\Models\ContactMessage;
 use Filament\Forms;
@@ -9,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ContactMessageResource extends Resource
 {
@@ -83,6 +85,18 @@ class ContactMessageResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()
+            ->when(auth()->user()->role->value === UserRole::ADMIN->value, function ($query) {
+                $query->whereNull('user_id');
+            })
+            ->when(auth()->user()->role->value === UserRole::WINERY->value, function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->latest();
     }
 
     public static function getPages(): array
