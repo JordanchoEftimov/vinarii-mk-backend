@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Winery extends Model
@@ -25,5 +26,10 @@ class Winery extends Model
     public function user(): HasOne
     {
         return $this->hasOne(User::class);
+    }
+
+    public function wines(): HasMany
+    {
+        return $this->hasMany(Wine::class);
     }
 }

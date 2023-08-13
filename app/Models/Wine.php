@@ -25,7 +25,7 @@ class Wine extends Model
         'description',
         'alcohol_content',
         'size_liters',
-        'user_id',
+        'winery_id',
         'image',
     ];
 
@@ -61,14 +61,14 @@ class Wine extends Model
         });
     }
 
-    public function user(): BelongsTo
+    public function winery(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Winery::class);
     }
 
     public function scopeFromAuthWinery($query)
     {
-        return $query->where('user_id', auth()->id());
+        return $query->where('winery_id', auth()->user()->winery->id);
     }
 
     protected static function boot()
@@ -76,7 +76,7 @@ class Wine extends Model
         parent::boot();
         self::creating(function (Wine $wine) {
             if (auth()->check() && auth()->user()->role === UserRole::WINERY) {
-                $wine->user()->associate(auth()->id());
+                $wine->winery()->associate(auth()->user()->winery()->id);
             }
         });
     }

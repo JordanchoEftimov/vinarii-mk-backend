@@ -60,11 +60,6 @@ class User extends Authenticatable implements FilamentUser
         return Attribute::set(fn ($val) => bcrypt($val));
     }
 
-    public function wines(): HasMany
-    {
-        return $this->hasMany(Wine::class);
-    }
-
     public function winery(): HasOne
     {
         return $this->hasOne(Winery::class);
@@ -98,13 +93,11 @@ class User extends Authenticatable implements FilamentUser
     {
         parent::boot();
         self::created(function (User $user) {
-            if ($user->role->value === UserRole::WINERY->value) {
-                $winery = new Winery([
-                    'legal_name' => $user->name,
-                    'user_id' => $user->id,
-                ]);
-                $winery->save();
-            }
+            $winery = new Winery([
+                'legal_name' => $user->name,
+                'user_id' => $user->id,
+            ]);
+            $winery->save();
         });
     }
 }

@@ -30,7 +30,7 @@ class WineSeeder extends Seeder
                 'description' => 'A harmonious blend of rich red fruits and velvety tannins...',
                 'alcohol_content' => 14.5,
                 'size_liters' => 0.75,
-                'user_id' => $user->id,
+                'winery_id' => $user->winery->id,
                 'image' => 'https://images.pexels.com/photos/2912108/pexels-photo-2912108.jpeg?cs=srgb&dl=pexels-kenneth-2912108.jpg&fm=jpg',
             ]);
     }

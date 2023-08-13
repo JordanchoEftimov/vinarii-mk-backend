@@ -24,7 +24,7 @@ return new class extends Migration
             $table->unsignedDouble('alcohol_content');
             $table->unsignedDouble('size_liters');
 
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('winery_id')->constrained();
             $table->timestamps();
         });
     }
