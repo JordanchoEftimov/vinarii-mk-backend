@@ -26,3 +26,4 @@ Route::apiResource('contact-messages', ContactMessageController::class)->only('s
 Route::apiResource('subscriptions', SubscriptionController::class)->only('store');
 Route::apiResource('wineries', WineryController::class)->only('index', 'show');
 Route::get('/best-wines', [WineController::class, 'getBestWines']);
+Route::get('/wineries/{winery}/wines', [WineryController::class, 'getWines']);

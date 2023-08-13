@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Wine;
 use App\Models\Winery;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -23,5 +24,14 @@ class WineryController extends Controller
     public function show(Winery $winery): JsonResource
     {
         return JsonResource::make($winery);
+    }
+
+    public function getWines(Winery $winery): AnonymousResourceCollection
+    {
+        $wines = Wine::query()
+            ->where('winery_id', $winery->id)
+            ->paginate(10);
+
+        return JsonResource::collection($wines);
     }
 }
