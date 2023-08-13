@@ -27,7 +27,8 @@ class WineResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->image()
                     ->label('Main Image')
-                    ->required(),
+                    ->required()
+                    ->imageEditor(),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
