@@ -8,6 +8,7 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -56,6 +57,11 @@ class User extends Authenticatable implements FilamentUser
     public function password(): Attribute
     {
         return Attribute::set(fn ($val) => bcrypt($val));
+    }
+
+    public function wines(): HasMany
+    {
+        return $this->hasMany(Wine::class);
     }
 
     public function userRoleName(): Attribute
