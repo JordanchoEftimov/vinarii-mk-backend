@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactMessageController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\WineController;
+use App\Http\Controllers\WineryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('contact-messages', ContactMessageController::class)->only('store');
 Route::apiResource('subscriptions', SubscriptionController::class)->only('store');
+Route::apiResource('wineries', WineryController::class)->only('index');
 Route::get('/best-wines', [WineController::class, 'getBestWines']);
