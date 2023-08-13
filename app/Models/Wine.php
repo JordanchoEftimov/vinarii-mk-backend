@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\Country;
 use App\Enums\UserRole;
 use App\Enums\WineType;
-use App\Enums\Country;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +25,7 @@ class Wine extends Model
         'alcohol_content',
         'size_liters',
         'user_id',
+        'image_src',
     ];
 
     protected $appends = [
@@ -65,7 +66,7 @@ class Wine extends Model
     {
         parent::boot();
         self::creating(function (Wine $wine) {
-            if (auth()->check() && auth()->user->role === UserRole::WINERY) {
+            if (auth()->check() && auth()->user()->role === UserRole::WINERY) {
                 $wine->user()->associate(auth()->id());
             }
         });
