@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 
 class Wine extends Model
 {
@@ -25,12 +26,13 @@ class Wine extends Model
         'alcohol_content',
         'size_liters',
         'user_id',
-        'image_src',
+        'image',
     ];
 
     protected $appends = [
         'wine_type_name',
         'country_name',
+        'main_image_src',
     ];
 
     protected $casts = [
@@ -49,6 +51,13 @@ class Wine extends Model
     {
         return Attribute::get(function () {
             return Country::name($this->country);
+        });
+    }
+
+    public function mainImageSrc(): Attribute
+    {
+        return Attribute::get(function () {
+            return Storage::url($this->image);
         });
     }
 

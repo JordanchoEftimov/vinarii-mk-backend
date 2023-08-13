@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('wines', function (Blueprint $table) {
             $table->id();
-            $table->string('image_src');
+            $table->string('image');
             $table->string('name');
             $table->string('region');
             $table->unsignedSmallInteger('vintage');

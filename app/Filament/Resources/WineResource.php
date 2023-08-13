@@ -24,7 +24,7 @@ class WineResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\FileUpload::make('image_src')
+                Forms\Components\FileUpload::make('image')
                     ->image()
                     ->label('Main Image')
                     ->required(),
@@ -321,7 +321,7 @@ class WineResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image_src')
+                Tables\Columns\ImageColumn::make('main_image_src')
                     ->label('Main Image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
