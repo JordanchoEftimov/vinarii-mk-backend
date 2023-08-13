@@ -24,5 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource('contact-messages', ContactMessageController::class)->only('store');
 Route::apiResource('subscriptions', SubscriptionController::class)->only('store');
-Route::apiResource('wineries', WineryController::class)->only('index');
+Route::apiResource('wineries', WineryController::class)->only('index', 'show');
 Route::get('/best-wines', [WineController::class, 'getBestWines']);
