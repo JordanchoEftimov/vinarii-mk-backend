@@ -15,7 +15,7 @@ class WineryPolicy
 
     public function view(User $user, Winery $winery): bool
     {
-        return $user->role === UserRole::WINERY && $user->winery()->id === $winery->id;
+        return $user->role === UserRole::WINERY && $user->winery->id === $winery->id;
     }
 
     public function create(User $user): bool
@@ -25,7 +25,7 @@ class WineryPolicy
 
     public function update(User $user, Winery $winery): bool
     {
-        return $user->role === UserRole::WINERY && $user->winery()->id === $winery->id;
+        return $user->role === UserRole::WINERY && $user->winery->id === $winery->id;
     }
 
     public function delete(User $user): bool
