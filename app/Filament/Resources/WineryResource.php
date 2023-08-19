@@ -22,6 +22,8 @@ class WineryResource extends Resource
 
     protected static ?int $navigationSort = 0;
 
+    protected static ?string $navigationGroup = 'Winery Settings';
+
     public static function form(Form $form): Form
     {
         return $form

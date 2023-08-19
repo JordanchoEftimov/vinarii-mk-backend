@@ -24,6 +24,8 @@ class WineResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    protected static ?string $navigationGroup = 'Winery Settings';
+
     public static function form(Form $form): Form
     {
         return $form
