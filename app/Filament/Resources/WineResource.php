@@ -343,7 +343,8 @@ class WineResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    ->money('den')
+                    ->summarize(Tables\Columns\Summarizers\Average::make())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('wine_type_name')
                     ->numeric()
@@ -398,6 +399,9 @@ class WineResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->groups([
+                'winery.legal_name',
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
