@@ -55,4 +55,19 @@ class Winery extends Model
     {
         return $query->where('user_id', auth()->id());
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::creating(function (Winery $winery) {
+            if (auth()->check()) {
+                $winery->user()->associate(auth()->id());
+            }
+        });
+
+        self::deleting(function (Winery $winery) {
+            $winery->wines()->delete();
+        });
+    }
 }
