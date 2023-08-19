@@ -27,6 +27,7 @@ class Wine extends Model
         'size_liters',
         'winery_id',
         'image',
+        'sort',
     ];
 
     protected $appends = [

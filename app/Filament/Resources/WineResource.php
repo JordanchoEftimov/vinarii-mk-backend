@@ -405,7 +405,8 @@ class WineResource extends Resource
             ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
-            ]);
+            ])
+            ->reorderable('sort');
     }
 
     public static function getEloquentQuery(): Builder
@@ -414,6 +415,7 @@ class WineResource extends Resource
             ->when(auth()->user()->role->value === UserRole::WINERY->value, function ($query) {
                 $query->fromAuthWinery();
             })
+            ->orderBy('sort')
             ->latest();
     }
 
