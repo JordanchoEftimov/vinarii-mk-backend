@@ -368,7 +368,9 @@ class WineResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('winery')
+                    ->relationship('winery', 'legal_name')
+                    ->multiple(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
