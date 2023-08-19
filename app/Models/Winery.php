@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -48,5 +49,10 @@ class Winery extends Model
     public function coverImageSrc(): Attribute
     {
         return Attribute::get(fn () => Storage::url($this->cover_image));
+    }
+
+    public function scopeFromAuthUser(Builder $query): Builder
+    {
+        return $query->where('user_id', auth()->id());
     }
 }

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             $this->call([
                 ContactMessageSeeder::class,
                 SubscriptionSeeder::class,
+                WinerySeeder::class,
                 WineSeeder::class,
             ]);
         }

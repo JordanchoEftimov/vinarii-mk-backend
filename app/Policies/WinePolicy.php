@@ -25,12 +25,12 @@ class WinePolicy
 
     public function update(User $user, Wine $wine): bool
     {
-        return $user->role === UserRole::WINERY && $user->id === $wine->user_id;
+        return $user->role === UserRole::WINERY && $user->id === $wine->winery->user_id;
     }
 
     public function delete(User $user, Wine $wine): bool
     {
-        return $user->role === UserRole::WINERY && $user->id === $wine->user_id;
+        return $user->role === UserRole::WINERY && $user->id === $wine->winery->user_id;
     }
 
     public function deleteAny(User $user): bool

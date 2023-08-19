@@ -24,6 +24,12 @@ class WineResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('winery_id')
+                    ->relationship(
+                        name: 'winery',
+                        titleAttribute: 'legal_name',
+                        modifyQueryUsing: fn (Builder $query) => $query->fromAuthUser(),
+                    ),
                 Forms\Components\FileUpload::make('image')
                     ->image()
                     ->label('Main Image')
@@ -322,6 +328,7 @@ class WineResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('winery.legal_name'),
                 Tables\Columns\ImageColumn::make('main_image_src')
                     ->label('Main Image'),
                 Tables\Columns\TextColumn::make('name')

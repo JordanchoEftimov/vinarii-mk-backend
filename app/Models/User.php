@@ -9,7 +9,6 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -60,9 +59,9 @@ class User extends Authenticatable implements FilamentUser
         return Attribute::set(fn ($val) => bcrypt($val));
     }
 
-    public function winery(): HasOne
+    public function wineries(): HasMany
     {
-        return $this->hasOne(Winery::class);
+        return $this->hasMany(Winery::class);
     }
 
     public function contactMessages(): HasMany
@@ -87,17 +86,5 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessPanel(Panel $panel): bool
     {
         return auth()->check();
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-        self::created(function (User $user) {
-            $winery = new Winery([
-                'legal_name' => $user->name,
-                'user_id' => $user->id,
-            ]);
-            $winery->save();
-        });
     }
 }

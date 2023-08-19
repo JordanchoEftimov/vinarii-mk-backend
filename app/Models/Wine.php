@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Enums\Country;
-use App\Enums\UserRole;
 use App\Enums\WineType;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -60,18 +60,12 @@ class Wine extends Model
         return $this->belongsTo(Winery::class);
     }
 
-    public function scopeFromAuthWinery($query)
+    public function scopeFromAuthWinery(Builder $query): Builder
     {
-        return $query->where('winery_id', auth()->user()->winery->id);
-    }
+        $userId = auth()->id();
 
-    protected static function boot()
-    {
-        parent::boot();
-        self::creating(function (Wine $wine) {
-            if (auth()->check() && auth()->user()->role === UserRole::WINERY) {
-                $wine->winery()->associate(auth()->user()->winery()->id);
-            }
+        return $query->whereHas('winery.user', function ($query) use ($userId) {
+            $query->where('users.id', $userId);
         });
     }
 }
