@@ -42,23 +42,17 @@ class Wine extends Model
 
     public function wineTypeName(): Attribute
     {
-        return Attribute::get(function () {
-            return WineType::name($this->wine_type);
-        });
+        return Attribute::get(fn () => WineType::name($this->wine_type));
     }
 
     public function countryName(): Attribute
     {
-        return Attribute::get(function () {
-            return Country::name($this->country);
-        });
+        return Attribute::get(fn () => Country::name($this->country));
     }
 
     public function mainImageSrc(): Attribute
     {
-        return Attribute::get(function () {
-            return Storage::url($this->image);
-        });
+        return Attribute::get(fn () => Storage::url($this->image));
     }
 
     public function winery(): BelongsTo
