@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserRole;
 use App\Models\Wine;
 use App\Models\Winery;
 use http\Client\Curl\User;
@@ -15,17 +16,20 @@ class WinerySeeder extends Seeder
      */
     public function run(): void
     {
-        $winery = Winery::query()->find(1);
-        if ($winery) {
+        $wineryUsers = \App\Models\User::where('role', UserRole::WINERY->value)->get();
+        $wineries = Winery::query()->get();
+
+        foreach ($wineries as $i => $winery) {
+            $winery->legal_name = 'Winery ' . ($i + 1);
             $winery->logo_image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz_Y_xijF5v_1ZkbGhWSasHiHwMdgX6nOCVXUQU0XoxVauzu0jdBKkhNQA2sAT_9QI8V4&usqp=CAU';
             $winery->cover_image = 'https://www.thetopvillas.com/blog/wp-content/uploads/2018/07/wine-featured.jpg';
-            $winery->address = 'Винарска визба Попова Кула АД Демир Капија';
-            $winery->email = 'contact@popovskakula.com.mk';
-            $winery->phone = '+389 76 432 630';
-            $winery->description = 'Винарска Визба Попова Кула има уникатна палета од фини вина од меѓународни но и од локални и регионални сорти на грозје меѓу кои и од Станушина. ';
-            $winery->working_hours = 'Mon-Fri: 08:00-16:00';
-        }
-        $winery->save();
+            $winery->address = 'Address ' . ($i + 1);
+            $winery->email = 'winery' . ($i + 1) . '@example.com';
+            $winery->phone = '123-456-789' . $i;
+            $winery->description = 'Description for Winery ' . ($i + 1);
+            $winery->working_hours = 'Working Hours ' . ($i + 1);
 
+            $winery->save();
+        }
     }
 }
