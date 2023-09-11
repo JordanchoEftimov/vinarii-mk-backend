@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
                 ContactMessageSeeder::class,
                 SubscriptionSeeder::class,
                 WineSeeder::class,
+                WinerySeeder::class,
             ]);
         }
     }
