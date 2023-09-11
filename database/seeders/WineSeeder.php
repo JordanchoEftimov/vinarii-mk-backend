@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Enums\Country;
-use App\Enums\UserRole;
 use App\Enums\WineType;
 use App\Models\User;
 use App\Models\Wine;
@@ -17,6 +16,7 @@ class WineSeeder extends Seeder
      */
     public function run(): void
     {
+
         $wineries = Winery::all();
 
         foreach ($wineries as $winery) {

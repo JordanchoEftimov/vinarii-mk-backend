@@ -8,9 +8,11 @@ use App\Enums\WineType;
 use App\Filament\Resources\WineResource\Pages;
 use App\Models\Wine;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -20,10 +22,20 @@ class WineResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $navigationGroup = 'Winery Settings';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('winery_id')
+                    ->relationship(
+                        name: 'winery',
+                        titleAttribute: 'legal_name',
+                        modifyQueryUsing: fn (Builder $query) => $query->fromAuthUser(),
+                    ),
                 Forms\Components\FileUpload::make('image')
                     ->image()
                     ->label('Main Image')
@@ -322,6 +334,7 @@ class WineResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('winery.legal_name'),
                 Tables\Columns\ImageColumn::make('main_image_src')
                     ->label('Main Image'),
                 Tables\Columns\TextColumn::make('name')
@@ -332,7 +345,8 @@ class WineResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->money()
+                    ->money('den')
+                    ->summarize(Tables\Columns\Summarizers\Average::make())
                     ->sortable(),
                 Tables\Columns\TextColumn::make('wine_type_name')
                     ->numeric()
@@ -359,7 +373,25 @@ class WineResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('winery')
+                    ->relationship('winery', 'legal_name')
+                    ->multiple(),
+                Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('created_from'),
+                        DatePicker::make('created_until'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -370,9 +402,13 @@ class WineResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
+            ->groups([
+                'winery.legal_name',
+            ])
             ->emptyStateActions([
                 Tables\Actions\CreateAction::make(),
-            ]);
+            ])
+            ->reorderable('sort');
     }
 
     public static function getEloquentQuery(): Builder
@@ -381,6 +417,7 @@ class WineResource extends Resource
             ->when(auth()->user()->role->value === UserRole::WINERY->value, function ($query) {
                 $query->fromAuthWinery();
             })
+            ->orderBy('sort')
             ->latest();
     }
 

@@ -16,7 +16,6 @@ class WinerySeeder extends Seeder
      */
     public function run(): void
     {
-        $wineryUsers = \App\Models\User::where('role', UserRole::WINERY->value)->get();
         $wineries = Winery::query()->get();
 
         foreach ($wineries as $i => $winery) {

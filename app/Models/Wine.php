@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Enums\Country;
-use App\Enums\UserRole;
 use App\Enums\WineType;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +27,7 @@ class Wine extends Model
         'size_liters',
         'winery_id',
         'image',
+        'sort',
     ];
 
     protected $appends = [
@@ -42,23 +43,17 @@ class Wine extends Model
 
     public function wineTypeName(): Attribute
     {
-        return Attribute::get(function () {
-            return WineType::name($this->wine_type);
-        });
+        return Attribute::get(fn () => WineType::name($this->wine_type));
     }
 
     public function countryName(): Attribute
     {
-        return Attribute::get(function () {
-            return Country::name($this->country);
-        });
+        return Attribute::get(fn () => Country::name($this->country));
     }
 
     public function mainImageSrc(): Attribute
     {
-        return Attribute::get(function () {
-            return Storage::url($this->image);
-        });
+        return Attribute::get(fn () => Storage::url($this->image));
     }
 
     public function winery(): BelongsTo
@@ -66,18 +61,12 @@ class Wine extends Model
         return $this->belongsTo(Winery::class);
     }
 
-    public function scopeFromAuthWinery($query)
+    public function scopeFromAuthWinery(Builder $query): Builder
     {
-        return $query->where('winery_id', auth()->user()->winery->id);
-    }
+        $userId = auth()->id();
 
-    protected static function boot()
-    {
-        parent::boot();
-        self::creating(function (Wine $wine) {
-            if (auth()->check() && auth()->user()->role === UserRole::WINERY) {
-                $wine->winery()->associate(auth()->user()->winery()->id);
-            }
+        return $query->whereHas('winery.user', function ($query) use ($userId) {
+            $query->where('users.id', $userId);
         });
     }
 }

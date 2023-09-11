@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('description');
             $table->unsignedDouble('alcohol_content');
             $table->unsignedDouble('size_liters');
+            $table->unsignedInteger('sort')->default(0);
 
             $table->foreignId('winery_id')->constrained();
             $table->timestamps();

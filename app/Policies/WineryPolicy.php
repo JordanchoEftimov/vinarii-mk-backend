@@ -10,27 +10,27 @@ class WineryPolicy
 {
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->role === UserRole::WINERY;
     }
 
     public function view(User $user, Winery $winery): bool
     {
-        return $user->role === UserRole::WINERY && $user->winery->id === $winery->id;
+        return $user->role === UserRole::WINERY && $user->wineries->contains('id', $winery->id);
     }
 
     public function create(User $user): bool
     {
-        return false;
+        return $user->role === UserRole::WINERY;
     }
 
     public function update(User $user, Winery $winery): bool
     {
-        return $user->role === UserRole::WINERY && $user->winery->id === $winery->id;
+        return $user->role === UserRole::WINERY && $user->wineries->contains('id', $winery->id);
     }
 
-    public function delete(User $user): bool
+    public function delete(User $user, Winery $winery): bool
     {
-        return false;
+        return $user->role === UserRole::WINERY && $user->wineries->contains('id', $winery->id);
     }
 
     public function deleteAny(User $user): bool
