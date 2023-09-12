@@ -8,7 +8,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class WineController extends Controller
 {
-
     public function show(Wine $wine): JsonResource
     {
         return JsonResource::make($wine);
@@ -22,5 +21,4 @@ class WineController extends Controller
 
         return JsonResource::collection($bestWines);
     }
-
 }

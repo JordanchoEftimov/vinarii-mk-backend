@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Enums\Country;
 use App\Enums\WineType;
-use App\Models\User;
 use App\Models\Wine;
 use App\Models\Winery;
 use Illuminate\Database\Seeder;
@@ -26,22 +25,22 @@ class WineSeeder extends Seeder
             'https://s3.amazonaws.com/efcheckout/firstbottle/products/First-Bottle-Silver-Oak-Alexander-Valley-2016-(Magnum-1.5L)-product-image_alt-4661-large.jpg',
         ];
         foreach ($wineries as $winery) {
-            for ($i = 1; $i <= 250; $i++) {
+            for ($i = 1; $i <= 100; $i++) {
                 $randomIndex = rand(0, 3);
                 Wine::query()
                     ->create([
-                        'name' => 'Vintage Vines Reserve ' . $i,
-                        'region' => 'Willowbrook Valley ' . $i,
-                        'vintage' => rand(1980, 2022),
-                        'price' => rand(10, 1000) / 10, // Random price between 1 and 100
+                        'name' => fake()->name,
+                        'region' => fake()->name,
+                        'vintage' => fake()->numberBetween(1900, 2023),
+                        'price' => fake()->numberBetween(20, 1000),
                         'wine_type' => WineType::randomValue(), // Random wine type
                         'country' => Country::getRandomCountry(), // Random country
-                        'rating' => rand(10, 50) / 10.0,
-                        'description' => 'A harmonious blend of rich red fruits and velvety tannins...',
+                        'rating' => fake()->numberBetween(5, 10),
+                        'description' => fake()->text(300),
                         'alcohol_content' => rand(10, 16) / 10, // Random alcohol content between 1.0 and 1.6
                         'size_liters' => 0.75, // Standard wine bottle size
                         'winery_id' => $winery->id,
-                        'image' => $imageLinks[$randomIndex]
+                        'image' => $imageLinks[$randomIndex],
                     ]);
             }
         }

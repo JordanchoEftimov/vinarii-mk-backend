@@ -510,6 +510,7 @@ enum Country: string
             self::ALA => 'Åland Islands',
         };
     }
+
     public static function getRandomCountry(): Country
     {
         $countries = [
@@ -566,6 +567,7 @@ enum Country: string
         ];
 
         $randomIndex = array_rand($countries);
+
         return $countries[$randomIndex];
     }
 }

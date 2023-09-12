@@ -2,8 +2,6 @@
 
 namespace App\Enums;
 
-use Nette\Utils\Random;
-
 enum WineType: int
 {
     case RED = 0;
@@ -12,12 +10,14 @@ enum WineType: int
     case SPARKLING = 3;
     case DESSERT = 4;
 
-     public static function randomValue(): WineType
+    public static function randomValue(): WineType
     {
         $wineTypes = [WineType::RED, WineType::WHITE, WineType::ROSE, WineType::SPARKLING, WineType::DESSERT];
         $randomIndex = array_rand($wineTypes);
+
         return $wineTypes[$randomIndex];
     }
+
     public static function name($wineType): string
     {
         return match ($wineType) {

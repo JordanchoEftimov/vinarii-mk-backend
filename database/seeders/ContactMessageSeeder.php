@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Enums\UserRole;
 use App\Models\ContactMessage;
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ContactMessageSeeder extends Seeder
@@ -14,34 +12,18 @@ class ContactMessageSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::query()
-            ->firstWhere('role', UserRole::WINERY->value);
-        collect([
-            [
-                'name' => 'Jordancho',
-                'surname' => 'Eftimov',
-                'email' => 'jocka@gmail.com',
-                'phone' => '077123123',
-                'description' => 'This is the first contact message for the platform',
-            ],
-            [
-                'name' => 'Kevin',
-                'surname' => 'Simonov',
-                'email' => 'kevin@gmail.com',
-                'phone' => '077111222',
-                'description' => 'This is the second contact message for the platform',
-            ],
-            [
-                'name' => 'Martin',
-                'surname' => 'Bojmaliev',
-                'email' => 'martin@gmail.com',
-                'phone' => '077111222',
-                'description' => 'This is the second contact message for a winery',
-                'user_id' => $user->id,
-            ],
-        ])->each(function ($contactMessage) {
+        for ($i = 0; $i < 300; $i++) {
+            $name = explode(' ', fake()->name);
             ContactMessage::query()
-                ->create($contactMessage);
-        });
+                ->create(
+                    [
+                        'name' => $name[0],
+                        'surname' => $name[1],
+                        'email' => fake()->email,
+                        'phone' => fake()->phoneNumber,
+                        'description' => fake()->text(400),
+                    ],
+                );
+        }
     }
 }

@@ -335,7 +335,7 @@ class WineResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('winery.legal_name'),
-                Tables\Columns\ImageColumn::make('main_image_src')
+                Tables\Columns\ImageColumn::make('image')
                     ->label('Main Image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),

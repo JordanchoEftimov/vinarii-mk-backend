@@ -12,22 +12,11 @@ class SubscriptionSeeder extends Seeder
      */
     public function run(): void
     {
-        collect([
-            [
-                'email' => 'jocka@gmail.com',
-            ],
-            [
-                'email' => 'kevin@gmail.com',
-            ],
-            [
-                'email' => 'martin@gmail.com',
-            ],
-            [
-                'email' => 'ace@gmail.com',
-            ],
-        ])->each(function ($subscription) {
+        for ($i = 0; $i < 200; $i++) {
             Subscription::query()
-                ->create($subscription);
-        });
+                ->create([
+                    'email' => fake()->email,
+                ]);
+        }
     }
 }
