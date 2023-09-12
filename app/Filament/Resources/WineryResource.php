@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\UserRole;
 use App\Filament\Resources\WineryResource\Pages;
+use App\Filament\Resources\WineryResource\RelationManagers\WinesRelationManager;
 use App\Models\Winery;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -115,6 +116,13 @@ class WineryResource extends Resource
                 $query->fromAuthUser();
             })
             ->latest();
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            WinesRelationManager::class,
+        ];
     }
 
     public static function getPages(): array
