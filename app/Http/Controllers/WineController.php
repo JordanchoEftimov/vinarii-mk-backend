@@ -8,6 +8,12 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class WineController extends Controller
 {
+
+    public function show(Wine $wine): JsonResource
+    {
+        return JsonResource::make($wine);
+    }
+
     public function getBestWines(): AnonymousResourceCollection
     {
         $bestWines = Wine::query()
@@ -16,4 +22,5 @@ class WineController extends Controller
 
         return JsonResource::collection($bestWines);
     }
+
 }
