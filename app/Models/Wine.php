@@ -26,6 +26,7 @@ class Wine extends Model
         'alcohol_content',
         'size_liters',
         'winery_id',
+        'rating',
         'image',
         'sort',
     ];

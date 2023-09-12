@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('vintage');
             $table->unsignedDouble('price');
             $table->unsignedInteger('wine_type');
+            $table->unsignedDouble('rating');
             $table->string('country');
             $table->text('description');
             $table->unsignedDouble('alcohol_content');

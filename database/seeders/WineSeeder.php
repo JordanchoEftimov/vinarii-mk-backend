@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Wine;
 use App\Models\Winery;
 use Illuminate\Database\Seeder;
+use Nette\Utils\Random;
 
 class WineSeeder extends Seeder
 {
@@ -29,6 +30,7 @@ class WineSeeder extends Seeder
                         'price' => rand(10, 1000) / 10, // Random price between 1 and 100
                         'wine_type' => WineType::randomValue(), // Random wine type
                         'country' => Country::getRandomCountry(), // Random country
+                        'rating' => rand(10, 50) / 10.0,
                         'description' => 'A harmonious blend of rich red fruits and velvety tannins...',
                         'alcohol_content' => rand(10, 16) / 10, // Random alcohol content between 1.0 and 1.6
                         'size_liters' => 0.75, // Standard wine bottle size
