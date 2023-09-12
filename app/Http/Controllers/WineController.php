@@ -17,7 +17,7 @@ class WineController extends Controller
     {
         $bestWines = Wine::query()
             ->inRandomOrder()
-            ->paginate(6);
+            ->paginate(12);
 
         return JsonResource::collection($bestWines);
     }
