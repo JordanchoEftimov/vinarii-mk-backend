@@ -64,8 +64,6 @@ class WineryResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('description')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('working_hours')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -97,6 +95,7 @@ class WineryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
@@ -122,6 +121,7 @@ class WineryResource extends Resource
     {
         return [
             'index' => Pages\ManageWineries::route('/'),
+            'view' => Pages\ViewWinery::route('/{record}'),
         ];
     }
 }
