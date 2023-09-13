@@ -90,7 +90,7 @@ class WinesRelationManager extends RelationManager
                     }),
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -102,8 +102,13 @@ class WinesRelationManager extends RelationManager
                 ]),
             ])
             ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
+                //
             ])
             ->reorderable('sort');
+    }
+
+    public function isReadOnly(): bool
+    {
+        return false;
     }
 }
