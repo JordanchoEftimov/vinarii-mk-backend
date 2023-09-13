@@ -22,7 +22,6 @@ class WineSeeder extends Seeder
             'https://w7.pngwing.com/pngs/573/483/png-transparent-red-wine-dessert-wine-liqueur-glass-bottle-wine-bottle-wine-glass-food-distilled-beverage.png',
             'https://images.pexels.com/photos/2912108/pexels-photo-2912108.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
             'https://www.hallwines.com/media/wysiwyg/HALL_KathrynHall_2020_Homepage_414x692.jpg',
-            'https://s3.amazonaws.com/efcheckout/firstbottle/products/First-Bottle-Silver-Oak-Alexander-Valley-2016-(Magnum-1.5L)-product-image_alt-4661-large.jpg',
         ];
         foreach ($wineries as $winery) {
             for ($i = 1; $i <= 100; $i++) {
