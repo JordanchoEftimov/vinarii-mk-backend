@@ -56,6 +56,11 @@ class Winery extends Model
         return $query->where('user_id', auth()->id());
     }
 
+    public function winerySettings(): HasMany
+    {
+        return $this->hasMany(WinerySetting::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
@@ -63,6 +68,14 @@ class Winery extends Model
         self::creating(function (Winery $winery) {
             if (auth()->check()) {
                 $winery->user()->associate(auth()->id());
+            }
+        });
+
+        self::created(function (Winery $winery) {
+            // create settings for every winery
+            $settings = WinerySetting::SETTINGS;
+            foreach ($settings as $setting) {
+                WinerySetting::createSetting($setting, $winery->id);
             }
         });
 

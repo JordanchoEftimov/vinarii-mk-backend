@@ -16,6 +16,7 @@ class WineryController extends Controller
 
         $wineries = Winery::query()
             ->where('legal_name', 'LIKE', '%'.$query.'%')
+            ->with('user')
             ->paginate(10);
 
         return JsonResource::collection($wineries);

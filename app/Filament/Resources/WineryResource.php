@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\UserRole;
 use App\Filament\Resources\WineryResource\Pages;
+use App\Filament\Resources\WineryResource\RelationManagers\WinerySettingsRelationManager;
 use App\Filament\Resources\WineryResource\RelationManagers\WinesRelationManager;
 use App\Models\Winery;
 use Filament\Forms;
@@ -122,6 +123,7 @@ class WineryResource extends Resource
     {
         return [
             WinesRelationManager::class,
+            WinerySettingsRelationManager::class,
         ];
     }
 
