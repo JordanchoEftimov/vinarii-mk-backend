@@ -25,7 +25,7 @@ class WineSeeder extends Seeder
         ];
         foreach ($wineries as $winery) {
             for ($i = 1; $i <= 100; $i++) {
-                $randomIndex = rand(0, 3);
+                $randomIndex = rand(0, 2);
                 Wine::query()
                     ->create([
                         'name' => fake()->name,
